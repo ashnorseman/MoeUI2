@@ -1,0 +1,16 @@
+{
+  "name": "MoeUI",
+  "version": "2.0.0",
+  "authors": [
+    "Ash Zhang"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "modernizr": "2.8.3",
+    "jquery": "1.11.3",
+    "underscore": "1.8.3",
+    "backbone": "1.1.2",
+    "normalize.css": "3.0.3",
+    "lesshat": "3.0.2"
+  }
+}

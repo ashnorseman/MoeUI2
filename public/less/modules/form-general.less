@@ -27,3 +27,45 @@ textarea {
 [disabled] {
   .opacity(@disabled-opacity);
 }
+
+
+// Disabled
+// --------------------------
+
+.control-disabled {
+  .opacity(@disabled-opacity);
+
+  button {
+    cursor: default;
+  }
+}
+
+
+// Validation
+// --------------------------
+
+.control-success {
+
+  > input,
+  > textarea {
+    color: @color-success;
+
+    &:focus {
+      background: @color-success-bg;
+    }
+  }
+}
+
+.control-error {
+
+  > input,
+  > textarea {
+    border: @border-width solid @color-error !important;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+    color: @color-error;
+
+    &:focus {
+      background-color: @color-error-bg;
+    }
+  }
+}

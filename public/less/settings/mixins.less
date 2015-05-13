@@ -202,3 +202,35 @@
   .loop-grid-columns(@columns, width);
   .loop-grid-columns(@columns, offset);
 }
+
+
+// Form
+// --------------------------
+
+.control-box {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+
+  &.control-required {
+
+    &:after {
+      display: inline-block;
+      color: @required-color;
+      content: '✱';
+      font-size: @font-sm;
+      line-height: @control-height;
+      position: absolute;
+        right: -@gap;
+        top: 0;
+    }
+
+    &.control-success:after {
+      color: @color-success;
+    }
+
+    &.control-error:after {
+      color: @color-error;
+    }
+  }
+}

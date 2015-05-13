@@ -81,11 +81,28 @@
 @font-family-desktop: ~"OpenSans,'Helvetica Neue',Helvetica,Arial,\5FAE\8F6F\96C5\9ED1, sans-serif";
 
 
+// Icons
+// --------------------------
+
+// Arrow (caret)
+@arrow-caret-size:  5px;
+@arrow-caret-color: @color-gray-darkest;
+
+
 // Form
 // --------------------------
 
 @disabled-opacity:      0.7;
 @control-border-radius: @border-radius-sm;
+@control-default-width: 200px;
+@control-lg-width:      @control-default-width * 2 + @font-base * 0.25;
+@control-md-width:      (@control-lg-width - @font-base * 0.25 * 2) / 3;
+@control-sm-width:      (@control-lg-width - @font-base * 0.25 * 3) / 4;
+@control-xs-width:      (@control-lg-width - @font-base * 0.25 * 9) / 10;
 
 // Button
 @btn-text:            @color-bg;
+
+// Input
+@input-bg:              @color-bg;
+@input-side-padding:    @gap-xs;

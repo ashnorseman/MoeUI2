@@ -28,6 +28,10 @@ module.exports = function (grunt) {
           {
             src: ['public/less/base.less'],
             dest: 'public/css/moeui.min.css'
+          },
+          {
+            src: ['public/less/demo.less'],
+            dest: 'public/css/demo.min.css'
           }
         ]
       }
@@ -44,7 +48,7 @@ module.exports = function (grunt) {
 
       css: {
         files: [
-          'public/less/**/*.less'
+          'public/less/**/*'
         ],
         tasks: ['less']
       },

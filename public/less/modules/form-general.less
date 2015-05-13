@@ -1,0 +1,29 @@
+/**
+ * Created by Ash.Zhang on 2015/5/13.
+ */
+
+
+// General
+// --------------------------
+
+button,
+input,
+select,
+textarea {
+  outline: 0;
+}
+
+button,
+input,
+select {
+  height: @control-height;
+  vertical-align: middle;
+}
+
+textarea {
+  vertical-align: top;
+}
+
+[disabled] {
+  .opacity(@disabled-opacity);
+}

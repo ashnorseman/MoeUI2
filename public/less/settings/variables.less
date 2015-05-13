@@ -1,0 +1,91 @@
+/**
+ * Created by Ash.Zhang on 2015/5/13.
+ */
+
+
+// Media Query
+// --------------------------
+
+@mq-xs-max: 767px;
+@mq-sm-min: 768px;
+@mq-md-min: 1024px;
+@mq-lg-min: 1280px;
+
+@mq-xs: ~"(max-width: @{mq-xs-max})"; // (0, 767]
+@mq-sm: ~"(min-width: @{mq-sm-min})"; // [768, 1024)
+@mq-md: ~"(min-width: @{mq-md-min})"; // [1024, 1280)
+@mq-lg: ~"(min-width: @{mq-lg-min})"; // [1280, +∞)
+
+
+// Global Settings
+// --------------------------
+
+// Spacing
+@gap:       20px;
+@gap-lg:    30px;
+@gap-md:    15px;
+@gap-sm:    10px;
+@gap-xs:    5px;
+@gap-tiny:  3px;
+
+// Color
+@color-text:        @color-gray-extra-dark;
+@color-border:      @color-gray-lighter;
+@color-bg:          #fff;
+@color-bg-palette:  @color-gray-extra-light;
+
+// Size
+@control-height:    26px;
+@control-sm-height: 20px;
+@control-lg-height: 48px;
+
+// Element Shape
+@border-width:      1px;
+@border-radius:     10px;
+@border-radius-md:  5px;
+@border-radius-sm:  3px;
+
+// Shadow
+@text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+
+// Animation
+@timing:          ease-in-out;
+@duration:        0.3s;
+@duration-short:  0.2s;
+
+// Image Path
+@img:   "../images/";
+@icon:  "../images/icons/";
+@bg:    "../images/bg/";
+
+
+// Grid
+// --------------------------
+
+@container-width: 1200px;
+@columns:         12;
+@column-gap:      @gap;
+
+
+// Typography
+// --------------------------
+
+// Text
+@font-xl:       18px;
+@font-lg:       16px;
+@font-base:     14px;
+@font-sm:       12px;
+@line-base:     @gap;
+@line-base-num: 1.4285714;
+@font-family:   ~"'Helvetica Neue',Helvetica,Arial,\5FAE\8F6F\96C5\9ED1,sans-serif";
+@font-family-desktop: ~"OpenSans,'Helvetica Neue',Helvetica,Arial,\5FAE\8F6F\96C5\9ED1, sans-serif";
+
+
+// Form
+// --------------------------
+
+@disabled-opacity:      0.7;
+@control-border-radius: @border-radius-sm;
+
+// Button
+@btn-text:            @color-bg;

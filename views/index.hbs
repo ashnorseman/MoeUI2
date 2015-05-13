@@ -1,4 +1,35 @@
+<div class="container-full">
+  <div class="row">
+    <nav class="side-nav col-sm-2 col-2" id="side-nav">
+      <ul>
+        <li><a href="javascript:void(0)" data-url="css/grid.html">Grid</a></li>
+        <li><a href="javascript:void(0)" data-url="css/typography.html">Typography</a></li>
+        <li><a href="javascript:void(0)" data-url="css/button.html">Button</a></li>
+        <li><a href="javascript:void(0)" data-url="css/form-control.html">Form Control</a></li>
+      </ul>
+    </nav>
+
+    <div class="content col-sm-10 col-10" id="content"></div>
+  </div>
+</div>
+
 {{#section 'pageScript'}}
   <script>
+
+    $(function () {
+      var $content = $('#content');
+
+      if (location.hash) {
+        $content.load('views/' + location.hash.slice(1));
+      }
+
+      $('#side-nav').find('a').click(function () {
+        var url = this.getAttribute('data-url');
+
+        $content.load('views/' + url);
+        location.hash = url;
+      });
+    });
+
   </script>
 {{/section}}

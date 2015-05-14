@@ -24,7 +24,9 @@ Moe.module('Form', function (Form, Moe) {
       this.setElement(this.$el.html());
     },
 
+    // Will not trigger events when disabled
     onClick: function () {
+      if (this.isDisabled()) return;
       this.model.get('onClick').apply(this, arguments);
     },
 
@@ -34,6 +36,10 @@ Moe.module('Form', function (Form, Moe) {
 
     disable: function () {
       this.set('disabled', true);
+    },
+
+    enable: function () {
+      this.set('disabled', false);
     }
   });
 
@@ -87,6 +93,6 @@ Moe.module('Form', function (Form, Moe) {
 
     return new Form['_' + _.capitalize(options.layout) + 'View']({
       model: new Form['_' + _.capitalize(options.layout) + 'Model'](options)
-    });
+    }).render();
   };
 });

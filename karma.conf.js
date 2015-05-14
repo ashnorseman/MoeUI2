@@ -19,6 +19,8 @@ module.exports = function(config) {
       'public/js/lib/underscore-min.js',
       'public/js/lib/backbone-min.js',
       'public/js/lib/tool-box.min.js',
+      'public/js/app.js',
+      'public/js/modules/*.js',
       'test/**/*.js'
     ],
 

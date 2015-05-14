@@ -14,6 +14,8 @@ module.exports = function (grunt) {
         },
         files: {
           'public/dist/moeui.min.js': [
+            'public/js/app.js',
+            'public/js/modules/*.js'
           ]
         }
       }

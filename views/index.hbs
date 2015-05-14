@@ -30,6 +30,19 @@
         $content.load('views/' + url);
         location.hash = url;
       });
+
+
+      button = Moe.Form.createControl({
+            layout: 'button',
+            className: 'gap-v',
+            icon: 'download',
+            text: 'TEST',
+            onClick: function (event) {
+              _.log(event);
+            }
+          });
+
+      button.render().$el.appendTo($content);
     });
 
   </script>

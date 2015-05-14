@@ -1,0 +1,73 @@
+/**
+ * Created by Ash.Zhang on 2015/5/14.
+ */
+
+
+.tooltip {
+  max-width: 400px;
+  position: absolute;
+    z-index: @z-tooltip;
+
+  > .arrow {
+    border: 6px solid transparent;
+    display: block;
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  &.left > .arrow {
+    border-left-color: rgba(0, 0, 0, 0.75);
+    margin-top: -6px;
+    top: 50%;
+    right: -@gap-sm;
+
+    .no-opacity & {
+      border-left-color: @color-gray-darkest;
+    }
+  }
+
+  &.right > .arrow {
+    border-right-color: rgba(0, 0, 0, 0.75);
+    margin-top: -6px;
+    top: 50%;
+    left: -@gap-sm;
+
+    .no-opacity & {
+      border-right-color: @color-gray-darkest;
+    }
+  }
+
+  &.bottom > .arrow {
+    border-bottom-color: rgba(0, 0, 0, 0.75);
+    margin-left: -6px;
+    top: -@gap-sm;
+    left: 50%;
+
+    .no-opacity & {
+      border-bottom-color: @color-gray-darkest;
+    }
+  }
+
+  &.top > .arrow {
+    border-top-color: rgba(0, 0, 0, 0.75);
+    margin-left: -6px;
+    bottom: -@gap-sm;
+    left: 50%;
+
+    .no-opacity & {
+      border-top-color: @color-gray-darkest;
+    }
+  }
+}
+
+.tooltip-content {
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: @border-radius-sm;
+  color: @color-bg;
+  padding: 6px @gap-sm;
+
+  .no-opacity & {
+    background-color: @color-gray-darkest;
+  }
+}

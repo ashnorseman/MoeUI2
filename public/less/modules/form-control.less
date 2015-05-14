@@ -50,6 +50,25 @@ textarea {
   width: @control-lg-width;
 }
 
+// With icon at right
+.control-input-icon {
+
+  > input {
+    padding-right: @control-height;
+  }
+
+  > [class^="icon-"] {
+    color: @color-gray;
+    font-size: @font-lg;
+    line-height: @control-height;
+    position: absolute;
+      right: 0;
+      top: 0;
+    text-align: center;
+    width: @control-height;
+  }
+}
+
 
 // Number
 // --------------------------
@@ -68,6 +87,7 @@ textarea {
   > .btn-icon {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
+    color: @color-gray-dark;
     height: @control-height / 2;
     position: absolute;
     right: 0;
@@ -76,22 +96,690 @@ textarea {
   > .number-up {
     border-bottom-right-radius: 0;
     top: 0;
+
+    > .number-icon {
+      margin-top: -@border-width;
+
+      .no-opacity & {
+        margin-left: @border-width;
+        margin-top: 0;
+      }
+    }
   }
 
   > .number-down {
     border-top-left-radius: 0;
     bottom: 0;
+
+    > .number-icon {
+
+      .no-opacity & {
+        margin-left: @border-width;
+        margin-top: @border-width / 2;
+      }
+    }
   }
 
-  .icon-arrow-caret {
-    left: (@control-height - floor(@arrow-caret-size * 2)) / 2 - @border-width;
+  .number-icon {
+    position: absolute;
+    left: (@control-height - @font-base) / 2 - @border-width;
+    top: (@control-height / 2 - @font-base) / 2 - @border-width;
+  }
+}
 
-    &.up {
-      top: (@control-height / 2 - @arrow-caret-size * 2) / 2 - @arrow-caret-size / 2 - 1;
+
+// Date
+// --------------------------
+
+.control-date {
+  &:extend(.control-input all);
+  &:extend(.control-input-icon all);
+
+  > input {
+    background: @input-bg;
+    border: 0;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(0, 0, 0, 0.35);
+
+    &:focus {
+      background: @color-bg-palette;
     }
 
-    &.down {
-      top: (@control-height / 2 - @arrow-caret-size * 2) / 2 + @arrow-caret-size / 2 - 1;
+    .no-boxshadow & {
+      border: @border-width solid @color-border;
+    }
+
+    &[disabled] {
+      background-color: @color-bg-palette;
+      border: @border-width solid @color-border;
+      box-shadow: none;
+    }
+  }
+}
+
+.no-boxshadow .control-date {
+
+  > input {
+    border: @border-width solid @color-border;
+  }
+
+  &.control-error {
+
+    > input {
+      border-color: @color-error;
+    }
+  }
+}
+
+
+// Checkbox and Radio
+// --------------------------
+
+[type=checkbox],
+[type=radio] {
+  background-color: transparent !important;
+  border: 0 !important;
+  height: 13px;
+  margin-right: @gap-tiny;
+  padding: 0;
+  vertical-align: -0.15em;
+  width: 13px;
+}
+
+
+.control-check {
+  &:extend(.control-box all);
+  display: block;
+  line-height: @control-height;
+  padding-right: @gap;
+
+  .opacity & {
+    position: relative;
+
+    [type=checkbox],
+    [type=radio] {
+      opacity: 0;
+    }
+
+    > span {
+      cursor: pointer;
+      &:extend(.icon-checkbox-empty all);
+
+      &:before {
+        color: @color-gray-dark;
+        font-family: "icomoon", sans-serif;
+        line-height: @control-height;
+        position: absolute;
+          left: 0;
+          top: 0;
+        width: @font-base;
+      }
+    }
+
+    :checked + span {
+      &:extend(.icon-checkbox-checked all);
+    }
+
+    [type=radio] + span {
+      &:extend(.icon-radio-empty all);
+    }
+
+    [type=radio]:checked + span {
+      &:extend(.icon-radio-checked all);
+    }
+
+    [disabled] + span {
+      cursor: default;
+    }
+  }
+}
+
+// Validation
+
+.control-required.control-check:after {
+  margin-left: @gap-sm;
+  right: auto;
+}
+
+.control-success.control-check {
+
+  > span:before {
+    color: @color-success;
+  }
+}
+
+.control-error.control-check {
+
+  > span {
+
+    &,
+    &:before {
+      color: @color-error;
+    }
+  }
+}
+
+// Inline
+.control-check-inline {
+  &:extend(.control-check all);
+  display: inline-block;
+  margin-right: @gap;
+}
+
+
+// Check List
+// --------------------------
+
+.control-check-list {
+  &:extend(.control-box all);
+}
+
+// Validation
+
+.control-success.control-check-list {
+
+  span:before {
+    color: @color-success;
+  }
+}
+
+.control-error.control-check-list {
+
+  span {
+
+    &,
+    &:before {
+      color: @color-error;
+    }
+  }
+}
+
+
+// Select
+// --------------------------
+
+.control-select {
+  &:extend(.control-box all);
+  z-index: @z-select;
+  width: @control-default-width;
+
+  .btn-icon {
+    color: @color-gray-dark;
+    position: absolute;
+      right: 0;
+      top: 0;
+  }
+
+  .select-icon {
+    line-height: @control-height;
+  }
+
+  &.opened {
+    z-index: @z-select-opened;
+  }
+}
+
+.select-text {
+  &:extend(.ellipsis);
+  background-color: @input-bg;
+  border: @border-width solid @color-border;
+  border-radius: @control-border-radius;
+  cursor: pointer;
+  height: @control-height;
+  line-height: @control-height - @border-width * 2;
+  padding: 0 @control-height 0 @input-side-padding;
+}
+
+.select-list {
+  background-color: @input-bg;
+  border: @border-width solid @color-border;
+  border-radius: @control-border-radius;
+  display: none;
+  overflow: hidden;
+  position: absolute;
+    left: 0;
+    top: @control-height - @border-width;
+  z-index: @z-select-list;
+  width: 100%;
+
+  ul {
+    margin: 0;
+  }
+
+  ul,
+  .check-list {
+    max-height: @line-base * 10;
+    overflow: auto;
+  }
+
+  // Multiple
+  .check-list {
+    display: block;
+    padding: 0 @input-side-padding;
+  }
+
+  a {
+    color: @color-text;
+    display: block;
+    min-height: @line-base;
+    padding: 0 @input-side-padding;
+
+    &:hover {
+      background-color: @color-primary;
+      color: @color-bg;
+    }
+  }
+}
+
+// Validation
+
+.control-error.control-select > .select-face > .select-text {
+  border-color: @color-error;
+  color: @color-error;
+}
+
+.control-success.control-select > .select-face > .select-text {
+  color: @color-success;
+}
+
+.control-disabled.control-select  > .select-face > .select-text {
+  background: @color-bg-palette;
+  color: @color-gray-dark;
+  cursor: default;
+}
+
+// Multiple
+
+.control-select {
+
+  .control-check-list {
+    display: block;
+    padding: 0 @input-side-padding;
+  }
+
+  .control-check {
+    padding-right: 0;
+  }
+}
+
+.select-btn {
+  padding: @gap-xs 0;
+  text-align: center;
+
+  > .btn-sm {
+    width: 60px;
+  }
+}
+
+
+// Time
+// --------------------------
+
+.control-time {
+  &:extend(.control-box all);
+
+  > .control-select {
+    width: 50px;
+  }
+
+  > .control-sep {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    width: @gap-sm;
+  }
+}
+
+// Validation
+
+.control-error.control-time .select-text {
+  &:extend(.control-error.control-select > .select-face > .select-text);
+}
+
+.control-success.control-time .select-text {
+  &:extend(.control-success.control-select > .select-face > .select-text);
+}
+
+.control-disabled.control-time .select-text {
+  &:extend(.control-disabled.control-select > .select-face > .select-text);
+}
+
+
+// Datetime
+// --------------------------
+
+.control-datetime {
+  &:extend(.control-box all);
+
+  > .control-date {
+    width: 110px;
+  }
+}
+
+// Validation
+
+.control-error.control-datetime {
+
+  .control-date > input {
+    &:extend(.control-error > input all);
+  }
+
+  .select-text {
+    &:extend(.control-error.control-select > .select-face > .select-text);
+  }
+}
+
+.control-success.control-datetime {
+
+  .control-date > input {
+    &:extend(.control-success > input all);
+  }
+
+  .select-text {
+    &:extend(.control-success.control-select > .select-face > .select-text);
+  }
+}
+
+.control-disabled.control-datetime {
+
+  .select-text {
+    &:extend(.control-disabled.control-select > .select-face > .select-text);
+  }
+}
+
+
+// Switch
+// --------------------------
+
+.control-switch {
+  &:extend(.control-box all);
+  height: @control-height;
+  width: 40px;
+
+  > input {
+    display: none;
+  }
+}
+
+.switch-plate {
+  background-color: @color-gray-light;
+  border-radius: @control-height / 2;
+  height: 100%;
+  position: absolute;
+    left: 0;
+    top: 0;
+  width: 100%;
+
+  :checked ~ & {
+    background-color: @color-primary;
+  }
+}
+
+.switch-toggle {
+  background-color: @color-bg;
+  border-radius: 20px / 2;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  height: 20px;
+  position: absolute;
+    left: (@control-height - 20px) / 2;
+    top: (@control-height - 20px) / 2;
+    z-index: 2;
+  .transition(left @duration-short @timing);
+  width: 20px;
+
+  :checked + & {
+    left: 40px - 20px - (@control-height - 20px) / 2;
+  }
+}
+
+.switch-cover {
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  height: 100%;
+  position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  width: 100%;
+}
+
+// Validation
+
+.control-disabled > .switch-cover {
+  cursor: default;
+}
+
+
+// IE8 support
+
+.no-opacity {
+
+  .control-switch {
+    line-height: @control-height;
+    width: auto;
+
+    > input {
+      display: inline;
+    }
+
+    .switch-toggle,
+    .switch-plate,
+    .switch-cover {
+      display: none;
+    }
+  }
+}
+
+// Validation
+
+.control-switch.control-disabled > .switch-plate {
+  background-color: @color-gray-light;
+}
+
+
+// Toggle
+// --------------------------
+
+.control-toggle {
+  &:extend(.control-switch);
+  width: 60px;
+
+  > input {
+    display: none;
+  }
+
+  > .switch-plate {
+    background-color: @color-primary;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.18));
+    border-radius: @control-border-radius;
+  }
+
+  > .switch-toggle {
+    background-color: @color-bg;
+    border-radius: @control-border-radius;
+    height: 20px;
+    position: absolute;
+      left: 60px / 2;
+      top: (@control-height - 20px) / 2;
+      z-index: 2;
+    width: 60px / 2 - (@control-height - 20px) / 2;
+  }
+
+  :checked:nth-of-type(2) ~ .switch-toggle {
+    left: (@control-height - 20px) / 2;
+  }
+}
+
+.toggle-ab-val {
+  color: @color-bg;
+  float: left;
+  font-size: @font-sm;
+  line-height: @control-height;
+  position: relative;
+    z-index: 2;
+  text-align: center;
+  width: 60px / 2;
+}
+
+// Validation
+
+.control-toggle.control-disabled > .switch-plate {
+  background-color: @color-gray-light;
+}
+
+.no-opacity {
+
+  .control-toggle {
+    &:extend(.no-opacity .control-switch all);
+  }
+
+  .toggle-ab-val {
+    color: @color-text;
+    float: none;
+    font-size: @font-base;
+    line-height: @control-height;
+    margin-right: @gap;
+    position: static;
+  }
+}
+
+
+// File
+// --------------------------
+
+.control-file {
+  &:extend(.control-box all);
+  padding-left: 30px + @gap-sm;
+
+  .icon-clip {
+    font-size: 30px;
+    position: absolute;
+      left: 0;
+      top: (@control-height - 30px) / 2;
+  }
+
+  .icon-stop {
+    color: @color-gray;
+    line-height: @control-height;
+    margin-left: @gap-xs;
+
+    &:hover {
+      color: @color-error;
+    }
+  }
+}
+
+
+.file-list {
+
+  > ul {
+    margin: 0;
+
+    > li {
+      line-height: @control-height;
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.file-command {
+  border-bottom: @border-width solid;
+  display: inline-block;
+  margin: (@control-height - @line-base) / 2 0 (@control-height - @line-base) / 2 - @border-width;
+  position: relative;
+
+  [type=file] {
+    cursor: pointer;
+    height: 100%;
+    .opacity(0);
+    position: absolute;
+      left: 0;
+      top: 0;
+    width: 100%;
+  }
+}
+
+// Validation
+.control-file.control-disabled {
+  opacity: 1;
+
+  input {
+    display: none;
+  }
+
+  .icon-stop {
+    color: @color-gray-lighter;
+    cursor: default;
+  }
+
+  .file-command {
+    color: @color-gray;
+    cursor: default;
+  }
+}
+
+.control-file.control-error > .icon-clip {
+  color: @color-error;
+}
+
+.control-file.control-success > .icon-clip {
+  color: @color-success;
+}
+
+
+// Sep
+// --------------------------
+
+.control-sep {
+  line-height: @control-height;
+  margin: 0 @gap-tiny;
+  vertical-align: top;
+}
+
+
+// Disabled
+// --------------------------
+
+.control-disabled {
+  opacity: @disabled-opacity;
+
+  button {
+    cursor: default;
+  }
+
+  [disabled] {
+    opacity: 1;
+  }
+}
+
+
+// Validation
+// --------------------------
+
+.control-success {
+
+  > input,
+  > textarea {
+    color: @color-success;
+
+    &:focus {
+      background: @color-success-bg;
+    }
+  }
+}
+
+.control-error {
+
+  > input,
+  > textarea {
+    border: @border-width solid @color-error;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+    color: @color-error;
+
+    &:focus {
+      background-color: @color-error-bg;
     }
   }
 }

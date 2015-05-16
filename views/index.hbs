@@ -32,17 +32,38 @@
       });
 
 
-      button = Moe.Form.createControl({
-            layout: 'button',
-            className: 'gap-v',
-            icon: 'download',
-            text: 'TEST',
-            onClick: function (event) {
-              _.log(event);
-            }
-          });
+      // [TEST]
+      _.addLang({
+        en: {
+          TEST: 'test'
+        },
+        zh: {
+          TEST: '测试'
+        }
+      });
 
-      button.$el.appendTo($content);
+      input = Moe.Form.createControl({
+        layout: 'number',
+        className: 'gap-v',
+        placeholder: 'test',
+        placeLocale: 'TEST',
+        //locale: 'TEST',
+        //value: 100,
+        digits: 2,
+        step: 10,
+        //validateOnCreate: true,
+        validation: {
+          required: true
+        },
+        errorMessage: {
+          number: '请输入数字'
+        },
+        onChange: function (event) {
+          _.log(this.getVal());
+        }
+      });
+
+      input.$el.appendTo($content);
     });
 
   </script>

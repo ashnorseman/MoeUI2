@@ -108,8 +108,8 @@ textarea {
   }
 
   > .number-down {
-    border-top-left-radius: 0;
-    bottom: 0;
+    border-top-right-radius: 0;
+    top: @control-height / 2;
 
     > .number-icon {
 
@@ -414,7 +414,7 @@ textarea {
 // Time
 // --------------------------
 
-.control-time {
+.control-hour {
   &:extend(.control-box all);
 
   > .control-select {
@@ -431,15 +431,15 @@ textarea {
 
 // Validation
 
-.control-error.control-time .select-text {
+.control-error.control-hour .select-text {
   &:extend(.control-error.control-select > .select-face > .select-text);
 }
 
-.control-success.control-time .select-text {
+.control-success.control-hour .select-text {
   &:extend(.control-success.control-select > .select-face > .select-text);
 }
 
-.control-disabled.control-time .select-text {
+.control-disabled.control-hour .select-text {
   &:extend(.control-disabled.control-select > .select-face > .select-text);
 }
 
@@ -447,7 +447,7 @@ textarea {
 // Datetime
 // --------------------------
 
-.control-datetime {
+.control-time {
   &:extend(.control-box all);
 
   > .control-date {
@@ -457,7 +457,7 @@ textarea {
 
 // Validation
 
-.control-error.control-datetime {
+.control-error.control-time {
 
   .control-date > input {
     &:extend(.control-error > input all);
@@ -468,7 +468,7 @@ textarea {
   }
 }
 
-.control-success.control-datetime {
+.control-success.control-time {
 
   .control-date > input {
     &:extend(.control-success > input all);
@@ -479,7 +479,7 @@ textarea {
   }
 }
 
-.control-disabled.control-datetime {
+.control-disabled.control-time {
 
   .select-text {
     &:extend(.control-disabled.control-select > .select-face > .select-text);

@@ -123,6 +123,11 @@ Moe.module('Form', function (Form, Moe) {
     },
 
 
+    getVal: function () {
+      return this.get('value');
+    },
+
+
     /**
      * Generate error messages according to `validationError` and self-defined `errorMessage`
      * @returns {Array}
@@ -145,15 +150,14 @@ Moe.module('Form', function (Form, Moe) {
      */
     validate: function (attr) {
       var validation = this.get('validation'),
-          value = attr.value,
+          value = this.getVal(),
           err;
 
       // Neither `valid` nor `invalid`
       if (!_.isPureObject(validation)) return;
 
       // `required` has the highest priority
-      if (validation.required
-        && (!_.notEmpty(value))) return { required: true };
+      if (validation.required && this.failRequired(value)) return { required: true };
 
       // Only check others when value is existy
       if (_.notEmpty(value)) {
@@ -168,6 +172,10 @@ Moe.module('Form', function (Form, Moe) {
 
       // All test passed
       this.trigger('valid');
+    },
+
+    failRequired: function (value) {
+      return !_.notEmpty(value) || value === false;
     },
 
     failMax: function (value, max) {
@@ -248,6 +256,23 @@ Moe.module('Form', function (Form, Moe) {
   });
 
 
+  Form._CheckboxModel =
+  Form._RadioModel = Form._InputModel.extend({
+
+    defaults: {
+      checked: false
+    },
+
+
+    // Overwrite
+    // --------------------------
+
+    getVal: function () {
+      return this.get('checked');
+    }
+  });
+
+
   Form._PasswordView =
   Form._InputView =
   Backbone.ItemView.extend({
@@ -280,7 +305,7 @@ Moe.module('Form', function (Form, Moe) {
 
     onRender: function () {
       this.setElement(this.$el.html());
-      this.modelShortcut(['isValid', 'hasChanged']);
+      this.modelShortcut(['getVal', 'isValid', 'hasChanged']);
       if (this.get('validateOnCreate')) this.isValid();
     },
 
@@ -289,7 +314,7 @@ Moe.module('Form', function (Form, Moe) {
     // --------------------------
 
     onChange: function (e) {
-      this.setVal($.trim(e.target.value));
+      this.setVal($.trim(e.target.value), { updateView: false });
       if (_.isFunction(this.get('onChange'))) this.get('onChange').apply(this, arguments);
     },
 
@@ -330,15 +355,11 @@ Moe.module('Form', function (Form, Moe) {
     // API
     // --------------------------
 
-    getVal: function () {
-      return this.get('value');
-    },
-
     setVal: function (val, options) {
       options || (options = {});
       this.set('value', val, options);
       if (options.validate !== false) this.isValid();
-      this.updateView();
+      if (options.updateView !== false) this.updateView();
     },
 
     clear: function () {
@@ -386,6 +407,7 @@ Moe.module('Form', function (Form, Moe) {
       this.$el.hide();
     }
   });
+
 
   Form._TextareaView = Form._InputView.extend({
     template:
@@ -467,6 +489,53 @@ Moe.module('Form', function (Form, Moe) {
         this.setVal(+this.getVal() + step);
         this.$(':text').trigger('change');
       }
+    }
+  });
+
+
+  Form._CheckboxView =
+  Form._RadioView = Form._InputView.extend({
+    template:
+      '<label class="control-check' +
+        '<% if (className) { %> <%= className %><% } %>' +
+        '<% if (validation && validation.required) { %> control-required<% } %>"' +
+      '">' +
+        '<input type="<%= layout %>"' +
+          '<% if (name) { %> name="<%= name %>"<% } %>' +
+          '<% if (_.exists(value)) { %> value="<%= value %>"<% } %>' +
+          '<% if (checked) { %> checked<% } %>' +
+          '<% if (disabled) { %> disabled<% } %>' +
+        '><span' +
+            '<% if (placeLocale) { %> data-locale-placeholder="<%= placeLocale %>"<% } %>' +
+          '><%= placeholder %></span>' +
+      '</label>',
+
+
+    // Dom events
+    // --------------------------
+
+    onChange: function (e) {
+      this.setVal(e.target.checked, { updateView: false });
+      if (_.isFunction(this.get('onChange'))) this.get('onChange').apply(this, arguments);
+    },
+
+
+    // Overwrite
+    // --------------------------
+
+    getVal: function () {
+      return this.get('checked');
+    },
+
+    setVal: function (val, options) {
+      options || (options = {});
+      this.set('checked', val, options);
+      if (options.validate !== false) this.isValid();
+      if (options.updateView !== false) this.updateView();
+    },
+
+    updateView: function () {
+      this.$(':input').prop('checked', this.getVal());
     }
   });
 

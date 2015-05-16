@@ -187,10 +187,14 @@ textarea {
 
 
 .control-check {
-  &:extend(.control-box all);
   display: block;
   line-height: @control-height;
   padding-right: @gap;
+  vertical-align: top;
+
+  > span {
+    margin-left: @gap-tiny;
+  }
 
   .opacity & {
     position: relative;
@@ -235,28 +239,41 @@ textarea {
 
 // Validation
 
-.control-required.control-check:after {
-  margin-left: @gap-sm;
-  right: auto;
-}
-
-.control-success.control-check {
-
-  > span:before {
-    color: @color-success;
-  }
-}
-
-.control-error.control-check {
+.control-check.control-required {
 
   > span {
 
+    &:after {
+      display: inline-block;
+      color: @required-color;
+      content: '✱';
+      font-size: @font-sm;
+      line-height: @control-height;
+      margin-left: @gap-sm;
+    }
+  }
+
+  &.control-success > span {
+
+    &:after {
+      color: @color-success;
+    }
+  }
+
+  &.control-error > span {
+
     &,
-    &:before {
+    &:after {
       color: @color-error;
     }
   }
 }
+
+.control-check > .control-error-message {
+  margin: 0 0 0 (13px + @gap-tiny * 2);
+  line-height: @line-base;
+}
+
 
 // Inline
 .control-check-inline {

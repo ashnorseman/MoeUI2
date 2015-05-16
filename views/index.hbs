@@ -43,20 +43,16 @@
       });
 
       input = Moe.Form.createControl({
-        layout: 'number',
+        layout: 'checkbox',
         className: 'gap-v',
         placeholder: 'test',
         placeLocale: 'TEST',
         //locale: 'TEST',
-        //value: 100,
-        digits: 2,
-        step: 10,
+        value: 'checkbox',
+        //checked: true,
         //validateOnCreate: true,
         validation: {
           required: true
-        },
-        errorMessage: {
-          number: '请输入数字'
         },
         onChange: function (event) {
           _.log(this.getVal());

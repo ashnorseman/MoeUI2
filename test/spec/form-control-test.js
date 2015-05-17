@@ -287,20 +287,6 @@ describe('Input', function () {
     expect(input.isValid()).to.be.ok;
   });
 
-  it('validate: minlength', function () {
-    var input = Moe.Form.createControl({
-          layout: 'input',
-          value: 'a',
-          validation: {
-            minlength: 2
-          }
-        });
-
-    expect(input.isValid()).to.be.not.ok;
-    input.setVal('aaaaa');
-    expect(input.isValid()).to.be.ok;
-  });
-
   it('validate: max', function () {
     var input = Moe.Form.createControl({
           layout: 'input',
@@ -511,5 +497,87 @@ describe('Number', function () {
     expect(input.getVal()).to.be.equal(null);
     expect(input.$(':text').val()).to.be.equal('');
     expect(input.model.validationError).to.be.not.ok;
+  });
+});
+
+describe('Checkbox & Radio', function () {
+
+  it('creates a checkbox', function () {
+    var input = Moe.Form.createControl({
+          layout: 'checkbox',
+          value: 'check',
+          placeholder: 'Test',
+          checked: true
+        });
+
+    expect(input.get('layout')).to.be.equal('checkbox');
+    expect(input.$(':checkbox').prop('checked')).to.be.equal(true);
+    expect(input.$('span').text()).to.be.equal('Test');
+  });
+
+  it('creates a radio', function () {
+    var input = Moe.Form.createControl({
+          layout: 'radio',
+          value: 'check',
+          placeholder: 'Test',
+          checked: true
+        });
+
+    expect(input.get('layout')).to.be.equal('radio');
+    expect(input.$(':radio').prop('checked')).to.be.equal(true);
+    expect(input.$('span').text()).to.be.equal('Test');
+  });
+
+  it('getVal/setVal/clear', function () {
+    var input = Moe.Form.createControl({
+          layout: 'checkbox',
+          value: 'check'
+        });
+
+    expect(input.getVal()).to.be.equal(false);
+    expect(input.$(':checkbox').prop('checked')).to.be.equal(false);
+    input.setVal(true);
+    expect(input.getVal()).to.be.equal(true);
+    expect(input.$(':checkbox').prop('checked')).to.be.equal(true);
+    input.clear();
+    expect(input.getVal()).to.be.equal(null);
+    expect(input.$(':checkbox').prop('checked')).to.be.equal(false);
+  });
+
+  it('validate: required', function () {
+    var input = Moe.Form.createControl({
+          layout: 'checkbox',
+          value: 'check',
+          validation: {
+            required: true
+          }
+        });
+
+    expect(input.isValid()).to.be.equal(false);
+    expect(input.$el.hasClass('control-error')).to.be.ok;
+    expect(input.$el.hasClass('control-success')).to.be.not.ok;
+    input.setVal(true);
+    expect(input.isValid()).to.be.equal(true);
+    expect(input.$el.hasClass('control-error')).to.be.not.ok;
+    expect(input.$el.hasClass('control-success')).to.be.ok;
+    input.clear();
+    expect(input.$el.hasClass('control-success')).to.be.not.ok;
+    expect(input.$el.hasClass('control-error')).to.be.not.ok;
+  });
+
+  it('onChange', function () {
+    var spy = sinon.spy(),
+        input = Moe.Form.createControl({
+          layout: 'checkbox',
+          value: 'check',
+          onChange: spy
+        });
+
+    expect(spy).to.be.not.called;
+    input.$(':checkbox').prop('checked', true).trigger('change');
+    expect(spy).to.be.calledOnce;
+    expect(spy).to.be.calledOn(input);
+    input.$(':checkbox').prop('checked', false).trigger('change');
+    expect(spy).to.be.calledTwice;
   });
 });

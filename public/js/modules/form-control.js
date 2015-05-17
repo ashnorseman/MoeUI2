@@ -523,10 +523,6 @@ Moe.module('Form', function (Form, Moe) {
     // Overwrite
     // --------------------------
 
-    getVal: function () {
-      return this.get('checked');
-    },
-
     setVal: function (val, options) {
       options || (options = {});
       this.set('checked', val, options);
